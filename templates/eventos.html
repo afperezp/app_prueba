@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div style="padding-left:50px;padding-top:50px;width: 950px;">
+    <div>
+        <div class="shadow-lg p-3 mb-5 bg-white rounded">
+            <h1>
+                Crear Memorias
+            </h1>
+        </div>
+    </div>
+    <div style="height: 400px; width: 700px; " class="shadow-lg p-3 mb-5 bg-white rounded container">
+
+        <div>
+            <div>
+                <div class="container ">
+                    <form action="" method="POST" style="padding: 20px;" class="group-form">
+                        {{ form.hidden_tag() }}
+
+                        <div class="form-group">
+                            <div>
+                                <div>{{ form.name.label }}</div>
+                                <div>{{ form.name (class="form-control")}}</div>
+                            </div>
+                            <div>
+                                <div>{{ form.descripcion.label }}</div>
+                                <div>{{ form.descripcion  (class="form-control")}}</div>
+                            </div>
+                            <div>
+                                <div>{{ form.fecha.label }}</div>
+                                <div>{{ form.fecha  (type="date", max="2030-12-31", 
+                        min="2000-01-01")}}</div>
+                            </div>
+                           
+                            <div style="padding-top: 40px;padding-left: 40%;">
+                                {{ form.submit(class = 'btn btn-dark') }}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock content %}
+</div>
