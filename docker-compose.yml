@@ -1,0 +1,21 @@
+version: '3.7'
+
+services:
+    server:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+        - "5000:5000"
+        networks:
+            front-tier:
+              aliases:
+                - server
+            back-tier:
+              aliases:
+                - server
+      
+
+networks:
+    front-tier:
+    back-tier:
