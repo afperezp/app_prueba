@@ -1,0 +1,63 @@
+version: '3.7'
+
+services:
+    client:
+        stdin_open: true
+        depends_on:
+          - server
+        build:
+          context: ./client
+          dockerfile: Dockerfile
+        image: "client_web"
+        environment:
+          NODE_ENV: 'development'
+        volumes:
+          - './client/:/app'
+          - client:/app/public/app
+        ports:
+          - '3000:3000'
+        networks:
+          front-tier:
+            aliases:
+              - client
+    server:
+        build:
+            context: ./server
+            dockerfile: Dockerfile
+        ports:
+        - "5000:5000"
+        networks:
+            front-tier:
+              aliases:
+                - server
+            back-tier:
+              aliases:
+                - server
+        depends_on: 
+            - db
+        entrypoint: ./entrypoint.sh
+        environment: 
+            - FLASK_APP=manage.py
+    db:
+        image: "postgres:alpine"
+        restart: always
+        ports:
+            - "5432:5432"
+        environment:
+            POSTGRES_PASSWORD: 'password'
+            POSTGRES_DB: 'postgres'
+            POSTGRES_USER: 'postgres'
+        volumes:
+            - db-data:/var/lib/postgresql/data
+        networks:
+            back-tier:
+                aliases:
+                  - database
+
+networks:
+    front-tier:
+    back-tier:
+
+volumes:
+    db-data:
+    client:

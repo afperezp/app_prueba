@@ -1,0 +1,16 @@
+flask
+flask_restful
+pillow
+flask_dropzone
+flask_sqlalchemy
+flask_bcrypt
+flask_login
+flask_uploads
+werkzeug==0.16.0
+flask_wtf
+psycopg2
+Flask-Migrate
+flask_script
+flask_testing
+flask_restplus
+PyJWT==1.5.3
