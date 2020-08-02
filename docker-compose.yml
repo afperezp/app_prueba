@@ -3,7 +3,7 @@ version: '3.7'
 services:
     server:
         build:
-            context: .
+            context: ./server
             dockerfile: Dockerfile
         ports:
         - "5000:5000"
@@ -14,8 +14,30 @@ services:
             back-tier:
               aliases:
                 - server
-      
+        depends_on: 
+            - db
+        entrypoint: ./entrypoint.sh
+        environment: 
+            - FLASK_APP=manage.py
+    db:
+        image: "postgres:alpine"
+        restart: always
+        ports:
+            - "5432:5432"
+        environment:
+            POSTGRES_PASSWORD: 'password'
+            POSTGRES_DB: 'postgres'
+            POSTGRES_USER: 'postgres'
+        volumes:
+            - db-data:/var/lib/postgresql/data
+        networks:
+            back-tier:
+                aliases:
+                  - database
 
 networks:
     front-tier:
     back-tier:
+
+volumes:
+    db-data:
