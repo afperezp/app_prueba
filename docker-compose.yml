@@ -1,6 +1,25 @@
 version: '3.7'
 
 services:
+    client:
+        stdin_open: true
+        depends_on:
+          - server
+        build:
+          context: ./client
+          dockerfile: Dockerfile
+        image: "client_web"
+        environment:
+          NODE_ENV: 'development'
+        volumes:
+          - './client/:/app'
+          - client:/app/public/app
+        ports:
+          - '3000:3000'
+        networks:
+          front-tier:
+            aliases:
+              - client
     server:
         build:
             context: ./server
@@ -41,3 +60,4 @@ networks:
 
 volumes:
     db-data:
+    client:
