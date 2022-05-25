@@ -13,4 +13,4 @@ Flask-Migrate
 flask_script
 flask_testing
 flask_restplus
-PyJWT==1.5.3
+PyJWT==2.4.0
